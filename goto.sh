@@ -80,7 +80,7 @@ fi
 
 # goto <name>
 # if directory exists, match it with grep and cd to it
-if [ ! $1 == -* ] ; then
+if [[ ! $1 == -* ]] ; then
   count=$(/bin/ls -1 $GOTO_SAVED_PATHS | grep $1 | wc -l)
 
   if [ $count -eq 0 ] ; then
