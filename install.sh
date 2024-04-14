@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # installation script for 'goto'
-# you need to have 'install.sh' and 'goto.sh' in the same directory
+# you need to have 'install.sh', 'runner.sh' and 'goto.sh' in the same directory
 
 GOTO_PATH=~/.config/goto
 BASHRC_PATH=~/.bashrc
@@ -12,7 +12,7 @@ if [ ! -d GOTO_PATH ]; then
   mkdir -p $GOTO_PATH
 fi
 
-# copy script to path
+# copy scripts to path
 if [ -e $GOTO_PATH/goto.sh ]; then
   echo "[INFO]: replacing goto.sh in $GOTO_PATH/"
 else
@@ -20,8 +20,15 @@ else
 fi
 cp goto.sh $GOTO_PATH/goto.sh
 
+if [ -e $GOTO_PATH/runner.sh ]; then
+  echo "[INFO]: replacing runner.sh in $GOTO_PATH/"
+else
+  echo "[INFO]: copying runner.sh to $GOTO_PATH/"
+fi
+cp runner.sh $GOTO_PATH/runner.sh
+
 # add alias to bashrc
-LINE="alias ${ALIAS}=\"source $GOTO_PATH/goto.sh\""
+LINE="alias ${ALIAS}=\"source $GOTO_PATH/runner.sh\""
 if grep -q "$LINE" $BASHRC_PATH; then
   echo "[INFO]: alias already exists in bashrc"
 elif grep "alias $ALIAS *=" $BASHRC_PATH | grep -v "^ *#"; then
